@@ -33,7 +33,7 @@ public class Workspace extends Gmail{
             count=1;
             for(int j=i+1;j<calendar.size();j++){
                 Meeting next = calendar.get(j);
-                if(begin.getEndTime().compareTo(next.getStartTime())>0)
+                if(begin.getEndTime().compareTo(next.getStartTime())>=0)
                     break;
                 else{
                     count++;
