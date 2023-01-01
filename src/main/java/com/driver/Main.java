@@ -29,10 +29,10 @@ public class Main {
         Workspace workspace = new Workspace("accio@gmail.com");
         System.out.println("Inbox capacity is " + workspace.getInboxCapacity() + " in workspace.");
 
-        workspace.addMeeting(new Meeting(LocalTime.parse("11:00"), LocalTime.parse("12:00")));
-        workspace.addMeeting(new Meeting(LocalTime.parse("14:00"), LocalTime.parse("16:00")));
-        workspace.addMeeting(new Meeting(LocalTime.parse("13:00"), LocalTime.parse("14:00")));
-        workspace.addMeeting(new Meeting(LocalTime.parse("13:00"), LocalTime.parse("14:00")));
+        workspace.addMeeting(new Meeting(LocalTime.parse("11:00"), LocalTime.parse("18:00")));
+        workspace.addMeeting(new Meeting(LocalTime.parse("18:10"), LocalTime.parse("19:00")));
+        workspace.addMeeting(new Meeting(LocalTime.parse("19:10"), LocalTime.parse("20:00")));
+        workspace.addMeeting(new Meeting(LocalTime.parse("17:00"), LocalTime.parse("18:00")));
         System.out.println("Maximum meetings you can attend in a day is " + workspace.findMaxMeetings());
     }
 }

@@ -13,7 +13,7 @@ public class Workspace extends Gmail{
     public Workspace(String emailId) {
         // The inboxCapacity is equal to the maximum value an integer can store.
       super(emailId,Integer.MAX_VALUE);
-      calendar = new ArrayList<>();
+      this.calendar = new ArrayList<>();
     }
 
     public void addMeeting(Meeting meeting){
@@ -26,22 +26,29 @@ public class Workspace extends Gmail{
         // 1. At a particular time, you can be present in at most one meeting
         // 2. If you want to attend a meeting, you must join it at its start time and leave at end time.
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
-       int count=0;
+       ArrayList<Pair<LocalTime,Integer>> endTimes = new ArrayList<>();
 
-
-       for(int i=0;i<calendar.size()-1;i++)
-       {
-           for(int j=0;j<calendar.size()-1-i;j++){
-               if(calendar.get(j).getStartTime().isAfter(calendar.get(j+1).getStartTime())){
-                  Collections.swap(calendar,j+1,j);
-               }
-           }
-        }
-
-       for(int i=1;i<calendar.size();i++){
-           if(calendar.get(i-1).getEndTime().isBefore(calendar.get(i).getStartTime()))
-               count++;
+       for(int i=0;i<calendar.size();i++){
+           endTimes.add(Pair.of(calendar.get(i).getEndTime(),i));
        }
-       return count+1;
+
+       Collections.sort(endTimes);
+
+       LocalTime time_limit = endTimes.get(0).getLeft();
+
+       int count = 0;
+
+       if(!endTimes.isEmpty()){
+           count++;
+       }
+
+       for(int i=1;i<endTimes.size();i++){
+           if(calendar.get(endTimes.get(i).getRight()).getStartTime().compareTo(time_limit)>0)
+           {
+               count++;
+               time_limit=endTimes.get(i).getLeft();
+           }
+       }
+       return count;
     }
 }
